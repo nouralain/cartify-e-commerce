@@ -1,0 +1,79 @@
+import { Star } from "lucide-react";
+
+export function FilterSidebar() {
+  return (
+    <div className="w-full pr-4 pb-8 space-y-6">
+      <div>
+        <h3 className="font-bold text-sm mb-2">Delivery Day</h3>
+        <label className="flex items-center space-x-2 text-sm cursor-pointer">
+          <input type="checkbox" className="rounded text-[#007185] focus:ring-[#ff9900]" />
+          <span>Get It by Tomorrow</span>
+        </label>
+      </div>
+
+      <div>
+        <h3 className="font-bold text-sm mb-2">Customer Review</h3>
+        <ul className="space-y-1">
+          {[4, 3, 2, 1].map((stars) => (
+            <li key={stars}>
+              <a href="#" className="flex items-center text-sm hover:text-[#c45500] group">
+                <div className="flex text-[#FFA41C]">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className={`h-4 w-4 ${i < stars ? "fill-current" : "text-gray-300"}`} />
+                  ))}
+                </div>
+                <span className="ml-1 text-[#0f1111] group-hover:text-[#c45500]">& Up</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3 className="font-bold text-sm mb-2">Brands</h3>
+        <div className="space-y-2">
+          {['Samsung', 'Apple', 'Sony', 'LG', 'Bose'].map((brand) => (
+            <label key={brand} className="flex items-center space-x-2 text-sm cursor-pointer hover:text-[#c45500]">
+              <input type="checkbox" className="rounded text-[#007185] focus:ring-[#ff9900]" />
+              <span>{brand}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3 className="font-bold text-sm mb-2">Price</h3>
+        <ul className="space-y-1 text-sm text-[#0f1111] mb-2">
+          <li><a href="#" className="hover:text-[#c45500]">Under $25</a></li>
+          <li><a href="#" className="hover:text-[#c45500]">$25 to $50</a></li>
+          <li><a href="#" className="hover:text-[#c45500]">$50 to $100</a></li>
+          <li><a href="#" className="hover:text-[#c45500]">$100 to $200</a></li>
+          <li><a href="#" className="hover:text-[#c45500]">$200 & Above</a></li>
+        </ul>
+        <div className="flex items-center gap-2 mt-2">
+          <input 
+            type="text" 
+            placeholder="$ Min" 
+            className="w-16 border border-gray-300 rounded-sm px-2 py-1 text-sm focus:outline-none focus:border-[#ff9900]" 
+          />
+          <input 
+            type="text" 
+            placeholder="$ Max" 
+            className="w-16 border border-gray-300 rounded-sm px-2 py-1 text-sm focus:outline-none focus:border-[#ff9900]" 
+          />
+          <button className="bg-white border border-gray-300 rounded px-3 py-1 text-sm hover:bg-gray-50 focus:ring-1 focus:ring-[#ff9900] shadow-sm">
+            Go
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="font-bold text-sm mb-2">Availability</h3>
+        <label className="flex items-center space-x-2 text-sm cursor-pointer">
+          <input type="checkbox" className="rounded text-[#007185] focus:ring-[#ff9900]" />
+          <span>Include Out of Stock</span>
+        </label>
+      </div>
+    </div>
+  );
+}
