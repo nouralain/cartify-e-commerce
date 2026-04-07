@@ -1,4 +1,4 @@
-# 🛒 [Project Name] - Modern E-commerce Storefront
+# 🛒 Cartify - Modern E-commerce Storefront
 
 A high-performance, responsive E-commerce web application built with **Next.js 14**, **Tailwind CSS**, and **Shadcn UI**. The design is inspired by the efficiency and clarity of Amazon's layout, providing a seamless shopping experience.
 

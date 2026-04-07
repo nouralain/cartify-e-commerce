@@ -1,9 +1,23 @@
+"use client"
 import Link from "next/link";
 import { Search, ShoppingCart, MapPin } from "lucide-react";
 import { CategoryDropdown } from "@/components/layout/CategoryDropdown";
+import logo from "../../../public/Gemini_Generated_Image_smrgtbsmrgtbsmrg (1)(1).png"
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import DeliveryLocationPopover from "./DeliveryLocation";
+import { usePathname } from "next/navigation";
+ export function Header() {
+  const [openPoppers, setOpenPoppers] = useState(false)
 
-export function Header() {
+  // when url changes close poppers -> fix unclosing popper when return back to home
+  const pathname = usePathname();
+  useEffect(() => {
+    setOpenPoppers(false); 
+  }, [pathname]);
   return (
+    
+    <>
     <header className="flex flex-col w-full relative z-40" id="top">
       {/* Announcement Bar */}
       <div className="bg-[#ff9900] text-[#0f1111] text-xs sm:text-sm font-bold text-center py-1.5 px-4 flex justify-center items-center hover:bg-[#ffb84d] transition-colors cursor-pointer group">
@@ -19,7 +33,12 @@ export function Header() {
         <div className="flex w-full sm:w-auto items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex flex-col justify-center px-1 border border-transparent hover:border-white rounded-sm pb-1">
-            <span className="text-2xl font-bold tracking-tighter">AmazonClone</span>
+            <span className="text-2xl font-bold tracking-tighter ">
+              <div className="flex items-center gap-2">
+                <Image src={logo} alt="logo" width={30} height={30} />
+                <span>Cartify<span className="text-sm">.eg</span></span>
+              </div>
+            </span>
           </Link>
           
           {/* Mobile Cart/User Icons */}
@@ -32,13 +51,13 @@ export function Header() {
         </div>
 
         {/* Location (Desktop) */}
-        <div className="hidden md:flex items-end px-2 border border-transparent hover:border-white rounded-sm cursor-pointer pb-1">
+        <button onClick={()=>setOpenPoppers(!openPoppers)} className="hidden md:flex items-end px-2 border border-transparent hover:border-white rounded-sm cursor-pointer pb-1">
           <MapPin className="h-5 w-5 mb-1 mr-1" />
           <div className="flex flex-col">
             <span className="text-xs text-gray-300 leading-tight">Deliver to</span>
             <span className="text-sm font-bold leading-tight">Your Address</span>
           </div>
-        </div>
+        </button>
 
         {/* Search Bar - Desktop */}
         <div className="flex-grow hidden sm:flex h-10 rounded-md overflow-hidden bg-white group focus-within:ring-2 focus-within:ring-[#ff9900]">
@@ -103,5 +122,9 @@ export function Header() {
         <Link href="/cart" className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1 hidden sm:block">Sell</Link>
       </div>
     </header>
+            {openPoppers && <DeliveryLocationPopover onClose={() => setOpenPoppers(false)} /> }
+
+    </>
+
   );
 }

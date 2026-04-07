@@ -1,5 +1,5 @@
 import { FilterSidebar } from "@/components/FilterSidebar";
-import { ProductCard } from "@/components/ProductCard";
+import { ProductCard } from "@/components/product/productCard";
 
 const mockProducts = Array.from({ length: 24 }).map((_, i) => ({
   id: `search-prod-${i}`,
