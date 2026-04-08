@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {  useState } from "react";
 
-export default function BrandsList({ brands }: { brands: IResponse<IBrand[]> }) {
+export default function BrandsList({ brands }: { brands:IBrand[] }) {
   const [showAllBrands, setShowAllBrands] = useState(false);
   
   const router = useRouter()
@@ -21,7 +21,7 @@ export default function BrandsList({ brands }: { brands: IResponse<IBrand[]> }) 
     }
       router.push(`?${params.toString()}`)
     }
- const displayedBrands = showAllBrands ? brands.data : brands.data.slice(0, 5);
+ const displayedBrands = showAllBrands ? brands : brands.slice(0, 5);
   return (
     <>
       {

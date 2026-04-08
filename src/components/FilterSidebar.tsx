@@ -36,7 +36,7 @@ export async function FilterSidebar() {
       <div>
         <h3 className="font-bold text-sm mb-2">Brands</h3>
         <div className="space-y-2">
-          <BrandsList brands={brands}/>
+          <BrandsList brands={brands.data}/>
         </div>
       </div>
 
