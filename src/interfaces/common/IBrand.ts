@@ -1,9 +1,8 @@
-export interface ICategory {
+export interface IBrand {
   _id: string;
   name: string;
   slug: string;
   image: string;
-  category?: string,
- createdAt?: string; 
+  createdAt?: string; 
   updatedAt?: string;
 }

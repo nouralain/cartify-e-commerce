@@ -4,19 +4,12 @@ import { apiClient } from "@/lib/api-client";
 import { MoveRight } from "lucide-react";
 import { ProductCard } from "@/components/product/productCard";
 
-// Mock products data
-const mockProducts = Array.from({ length: 30 }).map((_, i) => ({
-  id: `prod-${i}`,
-  title: `Sample Amazon Style Product ${i + 1} - High Quality and Reliable Features with modern design`,
-  image: `https://images.unsplash.com/photo-${1505740420928 + i}?w=400&h=400&fit=crop`,
-  price: 19.99 + i * 5.5,
-  rating: Math.random() * 2 + 3,
-  reviewCount: Math.floor(Math.random() * 10000) + 100,
-}));
-const categories = await apiClient.getCategories();
-console.log(categories);
 
-export default function Home() {
+
+export default async function Home() {
+  
+  const categories = await apiClient.getCategories();
+  const products = await apiClient.getProducts()  
   return (
     <div className="flex flex-col relative w-full">
       {/* Hero Carousel (Mocked as a static banner for visual layout) */}
@@ -83,8 +76,8 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4 lg:gap-5">
-            {mockProducts.slice(0, 15).map((product) => (
-              <ProductCard key={product.id} {...product} />
+            {products.data.slice(0,10).map((product) => (
+              <ProductCard key={product._id} product={product}  />
             ))}
           </div>
         </div>

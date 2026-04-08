@@ -1,12 +1,16 @@
-import { Star } from "lucide-react";
+import {  Star } from "lucide-react";
+import { apiClient } from '@/lib/api-client';
+import BrandsList from "./brands/BrandsList";
 
-export function FilterSidebar() {
+export async function FilterSidebar() {
+  const brands = await apiClient.getBrands()
+ 
   return (
     <div className="w-full pr-4 pb-8 space-y-6">
       <div>
         <h3 className="font-bold text-sm mb-2">Delivery Day</h3>
         <label className="flex items-center space-x-2 text-sm cursor-pointer">
-          <input type="checkbox" className="rounded text-[#007185] focus:ring-[#ff9900]" />
+          <input type="checkbox" className="rounded text-amazon-blue focus:ring-[#ff9900]" />
           <span>Get It by Tomorrow</span>
         </label>
       </div>
@@ -32,23 +36,18 @@ export function FilterSidebar() {
       <div>
         <h3 className="font-bold text-sm mb-2">Brands</h3>
         <div className="space-y-2">
-          {['Samsung', 'Apple', 'Sony', 'LG', 'Bose'].map((brand) => (
-            <label key={brand} className="flex items-center space-x-2 text-sm cursor-pointer hover:text-[#c45500]">
-              <input type="checkbox" className="rounded text-[#007185] focus:ring-[#ff9900]" />
-              <span>{brand}</span>
-            </label>
-          ))}
+          <BrandsList brands={brands}/>
         </div>
       </div>
 
       <div>
         <h3 className="font-bold text-sm mb-2">Price</h3>
         <ul className="space-y-1 text-sm text-[#0f1111] mb-2">
-          <li><a href="#" className="hover:text-[#c45500]">Under $25</a></li>
-          <li><a href="#" className="hover:text-[#c45500]">$25 to $50</a></li>
-          <li><a href="#" className="hover:text-[#c45500]">$50 to $100</a></li>
-          <li><a href="#" className="hover:text-[#c45500]">$100 to $200</a></li>
-          <li><a href="#" className="hover:text-[#c45500]">$200 & Above</a></li>
+          <li><a href="#" className="hover:text-[#c45500]">Under 100 L.E</a></li>
+          <li><a href="#" className="hover:text-[#c45500]">100 L.E to 250 L.E</a></li>
+          <li><a href="#" className="hover:text-[#c45500]">250L.E to 1K L.E</a></li>
+          <li><a href="#" className="hover:text-[#c45500]">1K L.E to 2K L.E</a></li>
+          <li><a href="#" className="hover:text-[#c45500]">2K L.E & Above</a></li>
         </ul>
         <div className="flex items-center gap-2 mt-2">
           <input 
@@ -70,7 +69,7 @@ export function FilterSidebar() {
       <div>
         <h3 className="font-bold text-sm mb-2">Availability</h3>
         <label className="flex items-center space-x-2 text-sm cursor-pointer">
-          <input type="checkbox" className="rounded text-[#007185] focus:ring-[#ff9900]" />
+          <input type="checkbox" className="rounded text-amazon-blue focus:ring-[#ff9900]" />
           <span>Include Out of Stock</span>
         </label>
       </div>

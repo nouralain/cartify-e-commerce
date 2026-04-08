@@ -7,7 +7,7 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
   
   return (
     <div className="bg-white min-h-screen p-4 md:p-8">
-      <div className="text-sm text-[#565959] mb-4 mt-2">
+      <div className="text-sm text-muted- mb-4 mt-2">
         Home &gt; Category &gt; Subcategory &gt; Product {id}
       </div>
 
@@ -21,7 +21,7 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
               </div>
             ))}
           </div>
-          <div className="relative flex-grow h-[400px] md:h-[600px] bg-gray-50 border border-gray-100 flex items-center justify-center p-4">
+          <div className="relative  grow h-100 md:h-150 bg-gray-50 border border-gray-100 flex items-center justify-center p-4">
             <Image 
               src={`https://images.unsplash.com/photo-1505740420928?w=800&h=800&fit=crop`} 
               alt="Main Product Image"
@@ -36,7 +36,7 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
           <h1 className="text-2xl sm:text-3xl font-medium leading-tight text-[#0f1111] mb-2">
             Sample Product Details Title - Premium Quality with Exclusive Features
           </h1>
-          <a href="#" className="text-[#007185] hover:underline text-sm tracking-wide">Brand: AmazonClone Basics</a>
+          <a href="#" className="text-amazon-blue hover:underline text-sm tracking-wide">Brand: AmazonClone Basics</a>
           
           <div className="flex items-center gap-4 mt-2 pb-2 border-b border-gray-300">
             <div className="flex items-center gap-1">
@@ -46,16 +46,16 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
                 <StarHalf className="h-4 w-4 fill-current" />
               </div>
             </div>
-            <a href="#" className="text-[#007185] hover:underline text-sm">2,504 ratings</a>
+            <a href="#" className="text-amazon-blue hover:underline text-sm">2,504 ratings</a>
           </div>
 
           <div className="mt-4">
             <div className="flex items-baseline">
-              <span className="text-sm pb-1 relative top-[-4px]">$</span>
+              <span className="text-sm pb-1 relative -top-1">$</span>
               <span className="text-3xl font-medium">49</span>
-              <span className="text-sm pb-1 relative top-[-4px]">99</span>
+              <span className="text-sm pb-1 relative -top-1">99</span>
             </div>
-            <div className="text-sm text-[#565959] mt-1 space-y-1">
+            <div className="text-sm text-muted- mt-1 space-y-1">
               <div className="flex items-center">
                 <span className="font-bold text-[#0f1111] bg-gray-100 rounded px-1 shrink-0">vprime</span>
                 <span className="ml-1">FREE Returns</span>
@@ -88,10 +88,10 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
           <div className="border border-gray-300 rounded-lg p-4 sticky top-4 shadow-sm">
             <span className="text-xl font-bold block mb-2">$49.99</span>
             
-            <div className="text-sm text-[#565959] mb-4">
+            <div className="text-sm text-muted- mb-4">
                <div className="flex items-center bg-transparent"><span className="font-bold text-[#0f1111] bg-gray-100 rounded px-1 mr-1">vprime</span>FREE delivery <strong>Tomorrow, Nov 12</strong></div>
                <div className="mt-1">Or fastest delivery <strong>Today, 5 PM - 10 PM</strong></div>
-               <div className="flex items-center gap-1 mt-2 mb-4 text-[#007185] hover:underline cursor-pointer"><span className="text-xs text-gray-500">📍</span> Deliver to User - City 12345</div>
+               <div className="flex items-center gap-1 mt-2 mb-4 text-amazon-blue hover:underline cursor-pointer"><span className="text-xs text-gray-500">📍</span> Deliver to User - City 12345</div>
             </div>
 
             <span className="text-lg text-[#007600] font-medium block mb-4">In Stock</span>
@@ -107,13 +107,13 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
             <Button className="w-full bg-[#FFD814] hover:bg-[#F7CA00] text-black rounded-full mb-2 font-medium border border-[#FCD200]/50 h-9">Add to Cart</Button>
             <Button className="w-full bg-[#FFA41C] hover:bg-[#FA8900] text-black rounded-full mb-4 font-medium border border-[#FFA41C]/50 h-9">Buy Now</Button>
 
-            <div className="text-xs text-[#565959] grid grid-cols-[1fr_2fr] gap-x-2 gap-y-1">
+            <div className="text-xs text-muted- grid grid-cols-[1fr_2fr] gap-x-2 gap-y-1">
               <span>Ships from</span>
               <span className="text-[#0f1111]">AmazonClone</span>
               <span>Sold by</span>
               <span className="text-[#0f1111]">AmazonClone</span>
               <span>Returns</span>
-              <span className="text-[#007185] hover:underline cursor-pointer">Eligible for Return, Refund or Replacement within 30 days of receipt</span>
+              <span className="text-amazon-blue hover:underline cursor-pointer">Eligible for Return, Refund or Replacement within 30 days of receipt</span>
             </div>
             
             <hr className="my-4 border-gray-300"/>
