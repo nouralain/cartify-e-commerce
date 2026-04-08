@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {  useState } from "react";
 
-export default function BrandsList({ brands }: { brands: IResponse<IBrand> }) {
+export default function BrandsList({ brands }: { brands: IResponse<IBrand[]> }) {
   const [showAllBrands, setShowAllBrands] = useState(false);
   
   const router = useRouter()
