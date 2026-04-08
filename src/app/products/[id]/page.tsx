@@ -1,32 +1,34 @@
 import Image from "next/image";
 import { Star, StarHalf } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { apiClient } from "@/lib/api-client";
 
-export default async function ProductDetailsPage({ params }: { params: { id: string } }) {
+export default async function ProductDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  
+  const product = await apiClient.getSpecificProduct(id)
+  const {_id,brand,category,description,imageCover,images,price,quantity,ratingsAverage,ratingsQuantity,slug,sold,subcategory,title} = product.data
   return (
     <div className="bg-white min-h-screen p-4 md:p-8">
       <div className="text-sm text-muted- mb-4 mt-2">
-        Home &gt; Category &gt; Subcategory &gt; Product {id}
+        Home &gt; Category &gt; Subcategory &gt; Product {product.data.title}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 relative mt-4">
         {/* Gallery */}
         <div className="md:col-span-5 flex gap-4">
           <div className="hidden sm:flex flex-col gap-2">
-            {[1,2,3,4].map(thumb => (
-              <div key={thumb} className="w-10 h-10 border border-gray-400 hover:border-[#e77600] rounded-sm cursor-pointer p-1 transition-colors">
-                <div className="w-full h-full bg-gray-200"></div>
+            {images.map(thumb => (
+              <div key={thumb} className="w-10 h-10 border border-gray-400 hover:border-[#e77600] rounded-sm cursor-pointer p-1 transition-colors overflow-hidden">
+                <Image src={thumb} alt="" width={50} height={50} />
               </div>
             ))}
           </div>
           <div className="relative  grow h-100 md:h-150 bg-gray-50 border border-gray-100 flex items-center justify-center p-4">
             <Image 
-              src={`https://images.unsplash.com/photo-1505740420928?w=800&h=800&fit=crop`} 
-              alt="Main Product Image"
+              src={imageCover} 
+              alt={title}
               fill
-              className="object-contain mix-blend-multiply drop-shadow-md"
+              className="object-cover mix-blend-multiply drop-shadow-md"
             />
           </div>
         </div>
@@ -34,26 +36,26 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
         {/* Info Area */}
         <div className="md:col-span-4">
           <h1 className="text-2xl sm:text-3xl font-medium leading-tight text-[#0f1111] mb-2">
-            Sample Product Details Title - Premium Quality with Exclusive Features
+           {title}
           </h1>
-          <a href="#" className="text-amazon-blue hover:underline text-sm tracking-wide">Brand: AmazonClone Basics</a>
+          <a href="#" className="text-amazon-blue hover:underline text-sm tracking-wide">Brand: {brand.name}</a>
           
           <div className="flex items-center gap-4 mt-2 pb-2 border-b border-gray-300">
             <div className="flex items-center gap-1">
-              <span className="text-sm font-bold">4.5</span>
+              <span className="text-sm font-bold">{ratingsAverage}</span>
               <div className="flex text-[#FFA41C]">
                 {[...Array(4)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
                 <StarHalf className="h-4 w-4 fill-current" />
               </div>
             </div>
-            <a href="#" className="text-amazon-blue hover:underline text-sm">2,504 ratings</a>
+            <a href="#" className="text-amazon-blue hover:underline text-sm">{ratingsQuantity}</a>
           </div>
 
           <div className="mt-4">
             <div className="flex items-baseline">
-              <span className="text-sm pb-1 relative -top-1">$</span>
-              <span className="text-3xl font-medium">49</span>
-              <span className="text-sm pb-1 relative -top-1">99</span>
+              <span className="text-sm pb-1 relative -top-1">EGP</span>
+              <span className="text-3xl font-medium">{price}</span>
+              <span className="text-sm pb-1 relative -top-1">00</span>
             </div>
             <div className="text-sm text-muted- mt-1 space-y-1">
               <div className="flex items-center">
@@ -63,30 +65,16 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
              </div>
           </div>
 
-          <div className="mt-6 space-y-4 text-sm text-[#0f1111]">
-            <p><strong>Color:</strong> Midnight Black</p>
-            <div className="flex flex-wrap gap-2">
-               <button className="w-12 h-12 rounded-sm border-2 border-[#e77600] p-1 shadow-[0_0_3px_rgba(231,118,0,0.5)]"><div className="w-full h-full bg-black"></div></button>
-               <button className="w-12 h-12 rounded-sm border border-gray-300 p-1 hover:border-black"><div className="w-full h-full bg-blue-800"></div></button>
-               <button className="w-12 h-12 rounded-sm border border-gray-300 p-1 hover:border-black"><div className="w-full h-full bg-gray-300"></div></button>
-            </div>
-          </div>
-
           <div className="mt-6">
             <h3 className="font-bold text-base mb-2">About this item</h3>
-            <ul className="list-disc pl-5 space-y-1 text-sm text-[#0f1111]">
-              <li>High quality construction.</li>
-              <li>Engineered for maximum reliability and performance.</li>
-              <li>Lightweight and durable design.</li>
-              <li>Includes a 1-year limited warranty.</li>
-            </ul>
+            <p>{description}</p>
           </div>
         </div>
 
         {/* Buy Box */}
         <div className="md:col-span-3">
           <div className="border border-gray-300 rounded-lg p-4 sticky top-4 shadow-sm">
-            <span className="text-xl font-bold block mb-2">$49.99</span>
+            <span className="text-xl font-bold block mb-2">{price} EGP</span>
             
             <div className="text-sm text-muted- mb-4">
                <div className="flex items-center bg-transparent"><span className="font-bold text-[#0f1111] bg-gray-100 rounded px-1 mr-1">vprime</span>FREE delivery <strong>Tomorrow, Nov 12</strong></div>
@@ -109,9 +97,9 @@ export default async function ProductDetailsPage({ params }: { params: { id: str
 
             <div className="text-xs text-muted- grid grid-cols-[1fr_2fr] gap-x-2 gap-y-1">
               <span>Ships from</span>
-              <span className="text-[#0f1111]">AmazonClone</span>
+              <span className="text-[#0f1111]">Cartify</span>
               <span>Sold by</span>
-              <span className="text-[#0f1111]">AmazonClone</span>
+              <span className="text-[#0f1111]">Cartify</span>
               <span>Returns</span>
               <span className="text-amazon-blue hover:underline cursor-pointer">Eligible for Return, Refund or Replacement within 30 days of receipt</span>
             </div>

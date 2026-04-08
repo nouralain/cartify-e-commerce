@@ -17,6 +17,11 @@ class ApiClient {
     const data = await response.json();
     return data;
   }
+    async getSpecificProduct(id:string): Promise<IResponse<IProduct>> {
+ const response = await fetch(`${this.#baseUrl}/api/v1/products/${id}`);
+    const data = await response.json();
+    return data;
+  }
 
   async getBrands(): Promise<IResponse<IBrand[]>> {
  const response = await fetch(`${this.#baseUrl}/api/v1/brands`);
