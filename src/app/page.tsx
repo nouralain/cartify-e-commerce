@@ -3,8 +3,14 @@ import Link from "next/link";
 import { apiClient } from "@/lib/api-client";
 import { MoveRight } from "lucide-react";
 import { ProductCard } from "@/components/product/productCard";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
-
+const imageSlider: string[] = [
+  "/61GiJeQ82vL._SX3000_.jpg",
+  "/61Hli1jABKL._SX3000_.jpg",
+  "/61iUO1T-ELL._SX3000_.jpg",
+  "/61Z4W0jra4L._SX3000_.jpg"
+];
 
 export default async function Home() {
   
@@ -12,10 +18,34 @@ export default async function Home() {
   const products = await apiClient.getProducts()  
   return (
     <div className="flex flex-col relative w-full">
-      {/* Hero Carousel (Mocked as a static banner for visual layout) */}
-      <div className="relative w-full h-75 sm:h-100 md:h-150 bg-linear-to-b from-[#1FA0BE] to-[#eaeded] flex justify-center -mb-37.5 sm:-mb-62.5 md:-mb-87.5 z-0">
-        {/* Placeholder for Carousel Banner */}
-        <div className="absolute top-0 w-full h-full object-cover mix-blend-overlay opacity-30 bg-black"></div>
+      {/* Hero Carousel */}
+      <div className="relative  w-full max-w-375 mx-auto bg-[#eaeded] -mb-37.5 sm:-mb-62.5 md:-mb-87.5 z-0">
+        <Carousel className="w-full " opts={{ loop: true }}>
+          <CarouselContent className="ml-0  pt-0!">
+            {/* Banner Items */}
+            {imageSlider.map((src,index) => (
+              <CarouselItem key={index} className="pl-0">
+                <div className="relative w-full h-75 sm:h-100 md:h-150">
+                  {/* Faux image background using linear gradient for mockup purposes */}
+                  <Image 
+              src={src} 
+              alt={`Banner ${index + 1}`}
+              fill
+              priority={index === 0} 
+              className="object-cover"
+            />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          
+          {/* Bottom Fade Gradient Overlay */}
+          <div className="absolute bottom-0 w-full h-[50%] bg-linear-to-t from-[#eaeded] via-[#eaeded]/80 to-transparent pointer-events-none z-10" />
+
+          {/* Carousel Controls */}
+          <CarouselPrevious className="absolute left-2 sm:left-4 top-[30%] -translate-y-1/2 h-20 w-12 sm:h-32 sm:w-16 rounded-md bg-transparent border-none text-black hover:bg-transparent *:w-8 *:h-8 sm:*:w-12 sm:*:h-12 focus:bg-transparent focus:ring-2 focus:ring-amazon-blue disabled:opacity-0 transition-opacity z-20 outline-none" />
+          <CarouselNext className="absolute right-2 sm:right-4 top-[30%] -translate-y-1/2 h-20 w-12 sm:h-32 sm:w-16 rounded-md bg-transparent border-none text-black hover:bg-transparent *:w-8 *:h-8 sm:*:w-12 sm:*:h-12 focus:bg-transparent focus:ring-2 focus:ring-amazon-blue disabled:opacity-0 transition-opacity z-20 outline-none" />
+        </Carousel>
       </div>
 
       <div className="z-10 px-4 md:px-6 w-full max-w-375 mx-auto">
@@ -75,51 +105,11 @@ export default async function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4 lg:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4 lg:gap-5">
             {products.data.slice(0,10).map((product) => (
               <ProductCard key={product._id} product={product}  />
             ))}
           </div>
-        </div>
-
-        {/* Additional Category Grid items */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
-          {[1, 2, 3, 4].map((idx) => (
-            <div
-              key={`more-${idx}`}
-              className="bg-white p-4 flex flex-col h-100"
-            >
-              <h2 className="text-xl font-bold mb-3">Continue shopping</h2>
-              <div className="grid grid-cols-2 gap-2 grow mb-4">
-                <div className="bg-gray-100 flex items-center justify-center p-2">
-                  <span className="text-xs text-center text-gray-500">
-                    Item 1
-                  </span>
-                </div>
-                <div className="bg-gray-100 flex items-center justify-center p-2">
-                  <span className="text-xs text-center text-gray-500">
-                    Item 2
-                  </span>
-                </div>
-                <div className="bg-gray-100 flex items-center justify-center p-2">
-                  <span className="text-xs text-center text-gray-500">
-                    Item 3
-                  </span>
-                </div>
-                <div className="bg-gray-100 flex items-center justify-center p-2">
-                  <span className="text-xs text-center text-gray-500">
-                    Item 4
-                  </span>
-                </div>
-              </div>
-              <Link
-                href="/products"
-                className="text-amazon-blue text-sm hover:text-[#c45500] hover:underline"
-              >
-                Explore more
-              </Link>
-            </div>
-          ))}
         </div>
       </div>
     </div>

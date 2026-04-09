@@ -20,7 +20,7 @@ import { usePathname } from "next/navigation";
     <>
     <header className="flex flex-col w-full relative z-40" id="top">
       {/* Announcement Bar */}
-      <div className="bg-[#ff9900] text-[#0f1111] text-xs sm:text-sm font-bold text-center py-1.5 px-4 flex justify-center items-center hover:bg-[#ffb84d] transition-colors cursor-pointer group">
+      <div className="bg-[#ff9900] text-[#0f1111] text-xs sm:text-sm font-bold text-center py-1.5 px-4 flex justify-center items-center hover:bg-amazon-accent-hover transition-colors cursor-pointer group">
         <span>Free Delivery on your first order. </span>
         <span className="ml-1 underline decoration-transparent group-hover:decoration-[#0f1111] transition-colors">
           Shop Now
@@ -28,7 +28,7 @@ import { usePathname } from "next/navigation";
       </div>
 
       {/* Top Bar */}
-      <div className="bg-[#232f3e] text-white flex flex-col sm:flex-row items-center px-4 py-2 gap-4 h-auto sm:h-[60px]">
+      <div className="bg-amazon-dark text-white flex flex-col sm:flex-row items-center px-4 py-2 gap-4 h-auto sm:h-15">
         
         <div className="flex w-full sm:w-auto items-center justify-between">
           {/* Logo */}
@@ -60,25 +60,25 @@ import { usePathname } from "next/navigation";
         </button>
 
         {/* Search Bar - Desktop */}
-        <div className="flex-grow hidden sm:flex h-10 rounded-md overflow-hidden bg-white group focus-within:ring-2 focus-within:ring-[#ff9900]">
+        <div className="grow hidden sm:flex h-10 rounded-md overflow-hidden bg-white group focus-within:ring-2 focus-within:ring-[#ff9900]">
           <div className="bg-gray-100 text-[#0f1111] px-3 flex items-center text-xs border-r border-gray-300 cursor-pointer hover:bg-gray-200">
             All Departments
           </div>
           <input 
             type="text" 
-            className="flex-grow px-3 text-[#0f1111] focus:outline-none" 
+            className="grow px-3 text-[#0f1111] focus:outline-none" 
             placeholder="Search products"
           />
-          <button className="bg-[#ff9900] hover:bg-[#ffb84d] px-4 flex items-center justify-center transition-colors">
+          <button className="bg-[#ff9900] hover:bg-amazon-accent-hover px-4 flex items-center justify-center transition-colors">
             <Search className="h-5 w-5 text-[#0f1111]" />
           </button>
         </div>
 
         {/* Account & Lists */}
-        <div className="hidden md:flex flex-col px-2 border border-transparent hover:border-white rounded-sm cursor-pointer">
+        <Link href={"/auth/login"} className="hidden md:flex flex-col px-2 border border-transparent hover:border-white rounded-sm cursor-pointer">
           <span className="text-xs text-gray-300 leading-tight">Hello, sign in</span>
           <span className="text-sm font-bold leading-tight">Account & Lists</span>
-        </div>
+        </Link>
 
         {/* Returns & Orders */}
         <div className="hidden lg:flex flex-col px-2 border border-transparent hover:border-white rounded-sm cursor-pointer">
@@ -97,29 +97,29 @@ import { usePathname } from "next/navigation";
       </div>
 
       {/* Mobile Search */}
-      <div className="sm:hidden bg-[#232f3e] px-4 pb-2">
+      <div className="sm:hidden bg-amazon-dark px-4 pb-2">
         <div className="flex h-10 rounded-md overflow-hidden bg-white ring-1 ring-transparent focus-within:ring-[#ff9900]">
           <input 
             type="text" 
-            className="flex-grow px-3 text-[#0f1111] outline-none" 
+            className="grow px-3 text-[#0f1111] outline-none" 
             placeholder="Search products"
           />
-          <button className="bg-[#ff9900] hover:bg-[#ffb84d] px-4 flex items-center justify-center">
+          <button className="bg-[#ff9900] hover:bg-amazon-accent-hover px-4 flex items-center justify-center">
             <Search className="h-5 w-5 text-[#0f1111]" />
           </button>
         </div>
       </div>
 
       {/* Sub Bar */}
-      <div className="bg-[#37475a] text-white flex items-center px-4 py-1 gap-2 sm:gap-4 text-sm min-h-[40px] flex-wrap md:flex-nowrap overflow-hidden">
+      <div className="bg-[#37475a] text-white flex items-center px-4 py-1 gap-2 sm:gap-4 text-sm min-h-10 flex-wrap md:flex-nowrap">
         <CategoryDropdown />
         <Link href="/products" className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1">Today&apos;s Deals</Link>
         <Link href="/categories" className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1">Categories</Link>
         <Link href="/brands" className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1">Featured Brands</Link>
         <Link href="/support" className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1">Customer Service</Link>
-        <Link href="/cart" className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1">Gift Cards</Link>
-        <Link href="/cart" className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1">Registry</Link>
-        <Link href="/cart" className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1 hidden sm:block">Sell</Link>
+        <Link href="/auth/register" className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1">Register</Link>
+        <Link href="/cart" className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1 hidden sm:block">My Orders</Link>
+        <Link href="/cart" className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1 hidden sm:block">My Wishlist</Link>
       </div>
     </header>
             {openPoppers && <DeliveryLocationPopover onClose={() => setOpenPoppers(false)} /> }
