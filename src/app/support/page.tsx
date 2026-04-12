@@ -1,7 +1,25 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { FieldValues, useForm } from "react-hook-form";
 
 export default function SupportPage() {
+
+  const {handleSubmit,register,} = useForm({
+    defaultValues:{
+      firstName:"",
+      lastName:"",
+      email:"",
+      orderNumber:"",
+      message:""
+    }
+
+  })
+  const handleUserSubmit = (e: FieldValues)=>{
+    e.preventDefault
+  console.log(e);
+  
+}
   return (
     <div className="min-h-screen bg-white md:bg-[#eaeded] py-0 md:py-8">
       <div className="max-w-4xl mx-auto flex flex-col md:flex-row bg-white md:shadow-sm rounded-sm md:border border-gray-200 overflow-hidden">
@@ -11,37 +29,37 @@ export default function SupportPage() {
           <h1 className="text-2xl font-bold text-[#0f1111] mb-2">Contact Us</h1>
           <p className="text-sm text-muted-foreground mb-8">We're here to help! Please fill out the form below and we will get back to you within 24 hours.</p>
           
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit(handleUserSubmit)}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1">
                 <label className="text-sm font-bold text-[#0f1111]">First Name</label>
-                <Input placeholder="John" className="focus-visible:ring-[#ff9900]" />
+                <Input required {...register("firstName") } type="text" placeholder="John" className="focus-visible:ring-[#ff9900]" />
               </div>
               <div className="space-y-1">
                 <label className="text-sm font-bold text-[#0f1111]">Last Name</label>
-                <Input placeholder="Doe" className="focus-visible:ring-[#ff9900]" />
+                <Input required {...register("lastName")  } type="text" placeholder="Doe" className="focus-visible:ring-[#ff9900]" />
               </div>
             </div>
             
             <div className="space-y-1">
               <label className="text-sm font-bold text-[#0f1111]">Email Address</label>
-              <Input type="email" placeholder="john.doe@example.com" className="focus-visible:ring-[#ff9900]" />
+              <Input required {...register("email")} type="email" placeholder="john.doe@example.com" className="focus-visible:ring-[#ff9900]" />
             </div>
 
             <div className="space-y-1">
               <label className="text-sm font-bold text-[#0f1111]">Order Number (Optional)</label>
-              <Input placeholder="123-1234567-1234567" className="focus-visible:ring-[#ff9900]" />
+              <Input {...register("orderNumber")} type="number" placeholder="123-1234567-1234567" className="focus-visible:ring-[#ff9900]" />
             </div>
             
             <div className="space-y-1">
               <label className="text-sm font-bold text-[#0f1111]">How can we help you?</label>
-              <textarea 
+              <textarea required  {...register("message")}
                 className="w-full min-h-30 rounded-sm border border-input px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff9900] shadow-sm"
                 placeholder="Describe your issue or question here..."
               ></textarea>
             </div>
             
-            <Button className="w-full bg-[#FFD814] hover:bg-[#F7CA00] text-[#0f1111] rounded-lg border border-[#FCD200]/50 font-medium shadow-sm h-9 mt-4">
+            <Button type="submit" className="w-full bg-[#FFD814] hover:bg-[#F7CA00] text-[#0f1111] rounded-lg border border-[#FCD200]/50 font-medium shadow-sm h-9 mt-4">
               Submit Message
             </Button>
           </form>

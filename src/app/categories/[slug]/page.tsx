@@ -51,17 +51,17 @@ console.log(slug);
             </h2>
           </div>
           <div className="flex justify-between gap-4 md:gap-6 overflow-x-auto pb-4 scrollbar-hide">
-            {uniqueBrands.map((product) => (
-              <div className="shrink-0 flex flex-col items-center gap-3 cursor-pointer group">
+            {uniqueBrands.map((brand) => (
+              <Link href={`/brands/${brand._id}`} className="shrink-0 flex flex-col items-center gap-3 cursor-pointer group">
                 <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center p-4 group-hover:border-amazon-blue group-hover:shadow-[0_0_10px_rgba(0,168,225,0.3)] transition-all">
                   <span className="font-extrabold text-2xl text-gray-300 group-hover:text-amazon-blue">
-                    {product.name}
+                    {brand.name}
                   </span>
                 </div>
                 <span className="text-sm font-medium text-center group-hover:text-[#c45500] text-[#0f1111]">
-                  {product.name}
+                  {brand.name}
                 </span>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
