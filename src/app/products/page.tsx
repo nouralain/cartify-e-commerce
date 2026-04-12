@@ -9,7 +9,6 @@ export default async function  ProductsPage({searchParams}:{
   const filteredProducts = brand
     ? products.data.filter(p => p.brand._id === brand)
     : products.data;
-    console.log(filteredProducts);
 
   return (
     <div className="flex flex-col md:flex-row gap-6 p-4 md:p-6 w-full">
@@ -17,8 +16,8 @@ export default async function  ProductsPage({searchParams}:{
         <FilterSidebar />
       </div>
       <div className="f grow mt-4">
-        <div className="bg-white border-b border-gray-200 p-3 mb-4 shadow-sm text-sm text-muted- rounded-sm">
-          1-24 of over 10,000 results for <span className="text-[#c45500] font-bold">"search term"</span>
+        <div className="bg-white border-b border-gray-200 p-3 mb-4 shadow-sm text-sm text-muted-foreground rounded-sm">
+           {filteredProducts.length} results 
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredProducts.map(product => (

@@ -7,7 +7,8 @@ export default async function ProdCategory({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
+  const {slug} = await params;
+console.log(slug);
 
   const productsResponse = await apiClient.getProducts();
   const products = productsResponse.data || [];
@@ -27,7 +28,7 @@ export default async function ProdCategory({
   );
  
   const relatedSubCategories = subCategories.data.filter((cat)=>cat.category===slug)
-  console.log(relatedSubCategories);
+  console.log(relatedCategoryProducts);
   
   return (
     <div className="flex flex-col min-h-screen bg-white w-full">

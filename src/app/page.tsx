@@ -61,7 +61,8 @@ export default async function Home() {
         {/* Category Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-8 pt-4">
           {categories.data.slice(0, 4).map((category) => (
-            <div
+            <Link 
+            href={`/categories/${category._id}`}
               key={category._id}
               className="bg-white p-4 flex flex-col h-100"
             >
@@ -75,12 +76,12 @@ export default async function Home() {
                 />
               </div>
               <Link
-                href={`/categories/${category.slug}`}
+                href={`/categories/${category._id}`}
                 className="text-amazon-blue text-sm hover:text-[#c45500] hover:underline"
               >
                 Shop now
               </Link>
-            </div>
+            </Link>
           ))}
         </div>
 

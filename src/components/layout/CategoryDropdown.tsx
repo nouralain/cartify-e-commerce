@@ -47,7 +47,7 @@ const [brands,setBrands] = useState<IBrand[]>([])
             <ul className="text-sm">
               {categories.slice(5).map((category, idx) => (
                 <li key={idx}>
-                  <Link href="/categories" className="flex items-center justify-between px-6 py-2 hover:bg-gray-100 text-[#111] transition-colors">
+                  <Link href={`/categories/${category._id}`} className="flex items-center justify-between px-6 py-2 hover:bg-gray-100 text-[#111] transition-colors">
                     {category.name} <ChevronRight className="h-4 w-4 text-gray-500" />
                   </Link>
                 </li>
@@ -57,10 +57,10 @@ const [brands,setBrands] = useState<IBrand[]>([])
           <div className="py-3">
             <h3 className="font-bold text-base px-6 py-2 tracking-tight text-[#0f1111]">Shop by Brand</h3>
             <ul className="text-sm">
-              {brands.slice(0,5).map((sub, idx) => (
+              {brands.slice(0,5).map((brand, idx) => (
                 <li key={idx}>
-                  <Link href="/categories" className="flex items-center justify-between px-6 py-3 hover:bg-gray-100 text-[#111] transition-colors">
-                    {sub.name} <ChevronRight className="h-4 w-4 text-gray-500" />
+                  <Link href={`/brands/${brand._id}`} className="flex items-center justify-between px-6 py-3 hover:bg-gray-100 text-[#111] transition-colors">
+                    {brand.name} <ChevronRight className="h-4 w-4 text-gray-500" />
                   </Link>
                 </li>
               ))}
