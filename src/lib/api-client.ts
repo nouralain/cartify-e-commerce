@@ -1,3 +1,4 @@
+import { signInResponse } from "@/types/signInResponse";
 import { IBrand } from "@/interfaces/common/IBrand";
 import { ICategory } from "@/interfaces/ICategory";
 import IProductParam from "@/interfaces/IProductParams";
@@ -6,6 +7,9 @@ import { IResponse } from "@/interfaces/IResponse";
 
 class ApiClient {
   #baseUrl: string = process.env.NEXT_PUBLIC_BASE_URL!;
+  #headers = {
+    'Content-Type': 'application/json',
+  };
 
   async getCategories(): Promise<IResponse<ICategory[]>> {
     const response = await fetch(`${this.#baseUrl}/api/v1/categories`);
@@ -50,6 +54,20 @@ if(params){
  const response = await fetch(`${this.#baseUrl}/api/v1/subcategories`);
     const data = await response.json();
     return data;
+  }
+
+  async signIn(email:string,password:string):Promise<signInResponse>{
+     const response = await fetch(`${this.#baseUrl}/api/v1/auth/signin`,{
+      method:"POST",
+      body:JSON.stringify({
+        email,
+        password
+      }),
+      headers:this.#headers
+    });
+      const data = await response.json();
+    return data;
+
   }
 
 }

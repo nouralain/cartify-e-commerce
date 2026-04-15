@@ -10,6 +10,8 @@ import { usePathname} from "next/navigation";
 import { IResponse } from '@/interfaces/IResponse';
 import { ICategory } from "@/interfaces/ICategory";
 import SearchBar from "./SearchBar";
+import { signOut, useSession } from "next-auth/react";
+import { Button } from "../ui/button";
 export function Header({categories}:{categories:IResponse<ICategory[]>}) {
   const [openPoppers, setOpenPoppers] = useState(false);
 
@@ -19,6 +21,7 @@ export function Header({categories}:{categories:IResponse<ICategory[]>}) {
     setOpenPoppers(false);
   }, [pathname]);
 
+  const session = useSession()
 
   return (
     <>
@@ -82,7 +85,7 @@ export function Header({categories}:{categories:IResponse<ICategory[]>}) {
           {/* Search Bar - Desktop */}
           <SearchBar categories={categories} />
           {/* Account & Lists */}
-          <Link
+         {session.status==="unauthenticated"? <Link
             href={"/auth/login"}
             className="hidden md:flex flex-col px-2 border border-transparent hover:border-white rounded-sm cursor-pointer"
           >
@@ -92,7 +95,9 @@ export function Header({categories}:{categories:IResponse<ICategory[]>}) {
             <span className="text-sm font-bold leading-tight">
               Account & Lists
             </span>
-          </Link>
+          </Link>:
+          <Button onClick={()=>signOut({callbackUrl:"/auth/login"})} className="px-2 border border-transparent hover:border-white rounded-sm cursor-pointer text-sm  font-bold leading-tight">Sign out</Button>
+          }
 
           {/* Returns & Orders */}
           <div className="hidden lg:flex flex-col px-2 border border-transparent hover:border-white rounded-sm cursor-pointer">
@@ -141,12 +146,7 @@ export function Header({categories}:{categories:IResponse<ICategory[]>}) {
           >
             Customer Service
           </Link>
-          <Link
-            href="/auth/register"
-            className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1"
-          >
-            Register
-          </Link>
+         
           <Link
             href="/cart"
             className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1 hidden sm:block"
@@ -159,6 +159,12 @@ export function Header({categories}:{categories:IResponse<ICategory[]>}) {
           >
             My Wishlist
           </Link>
+           {session.status==="unauthenticated"&&<Link
+            href="/auth/register"
+            className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1"
+          >
+            Register
+          </Link> }
         </div>
       </header>
       {openPoppers && (
