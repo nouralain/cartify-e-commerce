@@ -148,13 +148,13 @@ export function Header({categories}:{categories:IResponse<ICategory[]>}) {
           </Link>
          
           <Link
-            href="/cart"
+            href="/orders"
             className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1 hidden sm:block"
           >
             My Orders
           </Link>
           <Link
-            href="/cart"
+            href="/wishlist"
             className="hover:border hover:border-white border border-transparent px-1 rounded-sm whitespace-nowrap py-1 hidden sm:block"
           >
             My Wishlist
