@@ -1,10 +1,11 @@
 import React from 'react';
+import Link from 'next/link';
 import { apiClient } from "@/lib/api-client";
 import { ProductCard } from "@/components/product/productCard";
 
 export default async function WishlistPage() {
   const productsResult = await apiClient.getProducts();
-  const products = productsResult?.data?.slice(0, 8) || [];
+  const products: any[] = []; // Set this to empty array to show empty state design
 
   return (
     <div className="bg-[#eaeded] min-h-screen pt-4 pb-12">
@@ -48,11 +49,19 @@ export default async function WishlistPage() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-16 flex flex-col items-center">
-              <h2 className="font-bold text-lg mb-2">Your Shopping List is empty.</h2>
-              <p className="text-sm text-amazon-blue hover:text-[#c45500] hover:underline cursor-pointer">
-                Continue shopping
+            <div className="text-center py-20 flex flex-col items-center border border-dashed border-[#D5D9D9] rounded-lg bg-[#f7fafa] mt-8">
+              <div className="mb-4 text-[#D5D9D9]">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </div>
+              <h2 className="font-medium text-[20px] text-[#0f1111] mb-2">Your Shopping List is empty.</h2>
+              <p className="text-sm text-[#565959] mb-6 max-w-md">
+                Add items you want to shop for. You can easily find them later or share them with friends and family.
               </p>
+              <Link href="/">
+                <button className="bg-white hover:bg-gray-50 text-[#0f1111] text-sm px-6 py-2 border border-[#D5D9D9] shadow-[0_2px_5px_rgba(213,217,217,0.5)] whitespace-nowrap rounded-lg font-medium transition-colors">
+                  Explore Products
+                </button>
+              </Link>
             </div>
           )}
         </div>

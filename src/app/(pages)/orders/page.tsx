@@ -3,30 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function OrdersPage() {
-  const dummyOrders = [
-    {
-      id: "114-8392103-128391",
-      date: "August 12, 2026",
-      total: "EGP 4,250.00",
-      status: "Delivered",
-      statusDetail: "Delivered on August 15",
-      recipient: "John Doe",
-      items: [
-        { name: "Sony WH-1000XM5 Wireless Noise Cancelling Headphones", image: "/61GiJeQ82vL._SX3000_.jpg", returnWindow: "Return window closed on Sep 15, 2026", company: "Sony" }
-      ]
-    },
-    {
-      id: "112-9138212-321102",
-      date: "July 24, 2026",
-      total: "EGP 1,120.00",
-      status: "Shipped",
-      statusDetail: "Arriving tomorrow by 9 PM",
-      recipient: "John Doe",
-      items: [
-        { name: "Smart Home Security Camera, 1080p HD with Night Vision", image: "/61Hli1jABKL._SX3000_.jpg", returnWindow: "Eligible for return until Aug 24, 2026", company: "Wyze" }
-      ]
-    }
-  ];
+  const dummyOrders: any[] = []; // Set this to empty array to show empty state design
 
   return (
     <div className="bg-white min-h-screen">
@@ -71,7 +48,8 @@ export default function OrdersPage() {
         </div>
 
         <div className="space-y-5">
-          {dummyOrders.map((order) => (
+          {dummyOrders.length > 0 ? (
+          dummyOrders.map((order) => (
             <div key={order.id} className="border border-[#D5D9D9] rounded-lg overflow-hidden flex flex-col bg-white">
               <div className="bg-[#F0F2F2] p-4 border-b border-[#D5D9D9] flex flex-wrap gap-4 justify-between items-start text-sm text-muted-foreground">
                 <div className="flex flex-wrap gap-6 sm:gap-14">
@@ -105,7 +83,7 @@ export default function OrdersPage() {
                 
                 <div className="flex flex-col lg:flex-row gap-6">
                   <div className="grow flex flex-col gap-6">
-                    {order.items.map((item, idx) => (
+                    {order.items.map((item: any, idx: number) => (
                       <div key={idx} className="flex gap-4">
                         <div className="w-22.5 h-22.5 relative shrink-0 bg-transparent rounded p-1">
                            <Image 
@@ -153,7 +131,21 @@ export default function OrdersPage() {
                 </div>
               </div>
             </div>
-          ))}
+          ))
+          ) : (
+            <div className="border border-[#D5D9D9] rounded-lg p-6 flex flex-col items-center justify-center text-center bg-white py-16 mt-4">
+              <div className="mb-4 text-[#D5D9D9]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+              </div>
+              <h2 className="text-xl font-bold text-[#0f1111] mb-2">Looks like you haven't placed an order in the last 3 months.</h2>
+              <p className="text-sm text-[#565959] mb-6">Check your Cancelled Orders or change the filter to view older orders.</p>
+              <Link href="/">
+                <button className="bg-white hover:bg-gray-50 text-[#0f1111] text-sm px-6 py-2 border border-[#D5D9D9] shadow-[0_2px_5px_rgba(213,217,217,0.5)] whitespace-nowrap rounded-lg font-medium transition-colors">
+                  Continue shopping
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

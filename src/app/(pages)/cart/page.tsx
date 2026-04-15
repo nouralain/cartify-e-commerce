@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export default function CartPage() {
+  const cartItems: number[] = []; // Set this to empty array to show empty cart design
+
   return (
     <div className="bg-[#eaeded] min-h-screen p-4 md:p-8">
       <div className="flex flex-col lg:flex-row gap-6 max-w-7xl mx-auto">
@@ -14,7 +16,9 @@ export default function CartPage() {
           </div>
           
           {/* Cart Item Mock */}
-          {[1, 2].map((item) => (
+          {cartItems.length > 0 ? (
+          <>
+          {cartItems.map((item) => (
             <div key={item} className="flex flex-col sm:flex-row gap-4 py-4 border-b border-gray-200">
               <div className="w-full sm:w-40 shrink-0">
                 <div className="relative h-40 w-full bg-gray-50 flex items-center justify-center mix-blend-multiply">
@@ -61,8 +65,34 @@ export default function CartPage() {
           ))}
           
           <div className="flex justify-end pt-4">
-            <span className="text-lg text-[#0f1111]">Subtotal (2 items): <span className="font-bold">$178.99</span></span>
+            <span className="text-lg text-[#0f1111]">Subtotal ({cartItems.length} items): <span className="font-bold">$178.99</span></span>
           </div>
+          </>
+          ) : (
+          <div className="flex flex-col sm:flex-row items-center py-8 px-4 gap-8">
+            <div className="shrink-0 text-[#D5D9D9]">
+               <svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+            </div>
+            <div className="flex flex-col items-center sm:items-start text-center sm:text-left text-[#0f1111]">
+              <h2 className="text-2xl font-bold mb-2">Your Amazon Cart is empty.</h2>
+              <Link href="/" className="text-amazon-blue hover:text-[#c45500] hover:underline mb-4 text-sm font-medium">
+                Shop today's deals
+              </Link>
+              <div className="flex gap-3 mt-4 flex-wrap sm:flex-nowrap justify-center sm:justify-start">
+                <Link href="/auth/signin">
+                  <Button className="bg-[#FFD814] hover:bg-[#F7CA00] text-[#0f1111] rounded-full border border-transparent font-medium px-5 shadow-sm min-w-[200px] h-9">
+                    Sign in to your account
+                  </Button>
+                </Link>
+                <Link href="/auth/signup">
+                  <Button className="bg-white hover:bg-gray-50 text-[#0f1111] rounded-full border border-[#D5D9D9] font-medium px-5 shadow-[0_2px_5px_rgba(213,217,217,0.5)] min-w-[200px] h-9">
+                    Sign up now
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+          )}
         </div>
 
         {/* Checkout Summary Area */}

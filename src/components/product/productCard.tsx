@@ -17,6 +17,7 @@ export function ProductCard({ product }: { product: IProduct }) {
         <Image 
           src={imageCover} 
           alt={title} 
+          
           fill
           className="object-contain mix-blend-multiply" 
           sizes="(max-width: 768px) 100vw, 250px"
