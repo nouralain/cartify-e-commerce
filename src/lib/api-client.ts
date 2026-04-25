@@ -67,7 +67,54 @@ if(params){
     });
       const data = await response.json();
     return data;
+  }
 
+  async addToCart(productId: string, token: string): Promise<any> {
+    const response = await fetch(`${this.#baseUrl}/api/v1/cart`, {
+      method: "POST",
+      headers: {
+        ...this.#headers,
+        token,
+      },
+      body: JSON.stringify({ productId }),
+    });
+    return response.json();
+  }
+
+  async getCart(token: string): Promise<any> {
+    const response = await fetch(`${this.#baseUrl}/api/v1/cart`, {
+      method: "GET",
+      headers: {
+        ...this.#headers,
+        token,
+      },
+      cache: "no-store"
+    });
+    return response.json();
+  }
+
+  async addToWishlist(productId: string, token: string): Promise<any> {
+    const response = await fetch(`${this.#baseUrl}/api/v1/wishlist`, {
+      method: "POST",
+      headers: {
+        ...this.#headers,
+        token,
+      },
+      body: JSON.stringify({ productId }),
+    });
+    return response.json();
+  }
+
+  async getWishlist(token: string): Promise<any> {
+    const response = await fetch(`${this.#baseUrl}/api/v1/wishlist`, {
+      method: "GET",
+      headers: {
+        ...this.#headers,
+        token,
+      },
+      cache: "no-store"
+    });
+    return response.json();
   }
 
 }

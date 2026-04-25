@@ -1,11 +1,26 @@
 import React from 'react';
 import Link from 'next/link';
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 import { apiClient } from "@/lib/api-client";
 import { ProductCard } from "@/components/product/productCard";
 
 export default async function WishlistPage() {
-  const productsResult = await apiClient.getProducts();
-  const products: any[] = []; // Set this to empty array to show empty state design
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.token) {
+    redirect("/auth/signin");
+  }
+
+  let wishlistResult: any = null;
+  try {
+    wishlistResult = await apiClient.getWishlist(session.user.token as string);
+  } catch (error) {
+    console.error("Failed to fetch wishlist", error);
+  }
+
+  const products = wishlistResult?.data || [];
 
   return (
     <div className="bg-[#eaeded] min-h-screen pt-4 pb-12">
@@ -32,7 +47,7 @@ export default async function WishlistPage() {
           
           {products.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-              {products.map((product) => (
+              {products.map((product: any) => (
                 <div key={product._id} className="relative group rounded-md p-1 border border-transparent hover:border-gray-200 hover:shadow-sm transition-all bg-white flex flex-col h-full">
                    <div className="absolute top-2 right-2 z-10 hidden group-hover:block">
                      <button className="bg-white/80 backdrop-blur-sm p-1.5 rounded-full shadow-md border border-gray-200 hover:bg-gray-100 hover:text-red-500 text-gray-500 transition-colors">
@@ -43,7 +58,7 @@ export default async function WishlistPage() {
                      <ProductCard product={product} />
                    </div>
                    <div className="pt-2 px-2 pb-1 text-[11px] text-muted-foreground border-t border-gray-100 mt-2">
-                     Added July 15, 2026
+                     Added just now
                    </div>
                 </div>
               ))}

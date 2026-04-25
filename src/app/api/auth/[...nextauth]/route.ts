@@ -2,7 +2,7 @@ import { apiClient } from "@/lib/api-client";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const handler = NextAuth({
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -40,12 +40,12 @@ const handler = NextAuth({
     signIn: "/auth/signin",
   },
   callbacks:{
-   async session({session,token}){
+   async session({session,token}: any){
     session.user.role= token.role as string
     session.user.token= token.token as string
     return session
     },
-async jwt({token, user}){
+async jwt({token, user}: any){
     if(user){
         token.role=user.role
     token.token=user.token
@@ -53,6 +53,9 @@ async jwt({token, user}){
     return token
 }
   }
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
+

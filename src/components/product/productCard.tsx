@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Star, StarHalf } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { IProduct } from "@/interfaces/IProducts";
+import { AddToCartButton } from "./AddToCartButton";
+import { AddToWishlistButton } from "./AddToWishlistButton";
 
 
 
@@ -13,16 +14,19 @@ export function ProductCard({ product }: { product: IProduct }) {
 
   return (
     <div key={_id} className="bg-white border border-gray-200 rounded-sm hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 p-3 flex flex-col h-full group">
-      <Link href={`/products/${_id}`} className="relative h-48 w-full bg-gray-50 flex items-center justify-center p-2 rounded-sm mb-3 group-hover:bg-gray-100 transition-colors">
-        <Image 
-          src={imageCover} 
-          alt={title} 
-          
-          fill
-          className="object-contain mix-blend-multiply" 
-          sizes="(max-width: 768px) 100vw, 250px"
-        />
-      </Link>
+      <div className="relative group-hover:bg-gray-100 transition-colors bg-gray-50 rounded-sm mb-3">
+        <AddToWishlistButton productId={_id} />
+        <Link href={`/products/${_id}`} className="relative h-48 w-full flex items-center justify-center p-2">
+          <Image 
+            src={imageCover} 
+            alt={title} 
+            
+            fill
+            className="object-contain mix-blend-multiply" 
+            sizes="(max-width: 768px) 100vw, 250px"
+          />
+        </Link>
+      </div>
       
       <div className=" grow flex flex-col">
         <h2 className="font-bold">{brand.name}</h2>
@@ -68,9 +72,7 @@ export function ProductCard({ product }: { product: IProduct }) {
           </div>
         </div>
         
-        <Button className="w-full mt-3 bg-[#FFD814] hover:bg-[#F7CA00] text-black rounded-full border-0 shadow-none font-medium text-sm">
-          Add to cart
-        </Button>
+        <AddToCartButton productId={_id} />
       </div>
     </div>
   );
